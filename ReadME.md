@@ -9,11 +9,11 @@ Il permet d'avoir la jauge de remplissage des spectacles ainsi qu'un "state" pou
 ## Données 
 
 Pour récupérer les données, nous utilisons différentes sources :
-    -> l'api mobile du Puy du Fou (https://api.mobile.puydufou.com/) -> Pour le programme en JSON 
-    -> le cdn de l'app mobile du Puy du Fou (https://cdn.mobile.puydufou.com/) -> Pour la Database en SQLite (Convertir les id des spectacles en nom...)
-    -> l'api mobile, spécifiquement la partie "pivot" (https://api.mobile.puydufou.com/pivot/pdf/wezit?lang=fr) -> Pour intervertir des ID pour le MQTT
+- l'api mobile du Puy du Fou (https://api.mobile.puydufou.com/) -> Pour le programme en JSON 
+- le cdn de l'app mobile du Puy du Fou (https://cdn.mobile.puydufou.com/) -> Pour la Database en SQLite (Convertir les id des spectacles en nom...)
+- l'api mobile, spécifiquement la partie "pivot" (https://api.mobile.puydufou.com/pivot/pdf/wezit?lang=fr) -> Pour intervertir des ID pour le MQTT
 
-    -> Le serveur MQTT de l'app mobile du Puy du fou (wss://notifications.puydufou.com/mqtt) -> Pour récupérer les informations en temps réel (jauge de remplissage principalement)
+- Le serveur MQTT de l'app mobile du Puy du fou (wss://notifications.puydufou.com/mqtt) -> Pour récupérer les informations en temps réel (jauge de remplissage principalement)
 
 ## Utilisabilité
 
@@ -35,6 +35,59 @@ Pour lancer le projet, il suffit de lancer la commande `npm start` pour lancer l
 ## Exemple d'utilisation
 
 les fichiers example_mqtt.js et example_webserver.js sont des exemples d'utilisation des différentes parties du projet.
+
+## Exemple WebServer 
+
+```json
+    {
+        "wzid": "wzobj:scenode_5AOAE8eEY",
+        "duree": 28,
+        "heures": [
+            {
+                "debut": "1000",
+                "debut_timestamp": 1715414400000,
+                "fin": ""
+            },
+            {
+                "debut": "1200",
+                "debut_timestamp": 1715421600000,
+                "fin": ""
+            },
+            {
+                "debut": "1430",
+                "debut_timestamp": 1715430600000,
+                "fin": ""
+            },
+            {
+                "debut": "1600",
+                "debut_timestamp": 1715436000000,
+                "fin": ""
+            },
+            {
+                "debut": "1730",
+                "debut_timestamp": 1715441400000,
+                "fin": ""
+            },
+            {
+                "debut": "1900",
+                "debut_timestamp": 1715446800000,
+                "fin": ""
+            }
+        ],
+        "title": "Le Mime et l’Étoile",
+        "subject": "Action ! Aux débuts du cinéma, assistez à un tournage en noir et blanc où le réalisateur va chercher à rendre voix et couleurs à ses personnages.",
+        "description": "Nous sommes en 1914 et les visiteurs sont invités à assister, en silence, au tournage d’un tout nouveau film mettant en scène Garance, l’étoile montante du 7ème art, et Mimoza, le jeune mime rêveur. Sur le plateau, le réalisateur Gérard Bideau espère réaliser son rêve… Il est en effet convaincu que seul un amour sincère pourra offrir au cinéma muet et noir et blanc, une couleur et un son.",
+        "pdfid": "2225962953460071741",
+        "state": 2,
+        "affluence": 50
+    }
+```
+
+### Type de state 
+- 0: Aucun spectacle pendant 1h
+- 1: Spectacle dans les prochaines 60 minutes
+- 2: Spectacle en court de remplissage, début dans moins de 30 minutes
+- 3: Spectacle complet ou en cours
 
 ## License
 
